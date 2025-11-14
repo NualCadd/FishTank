@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Tank</title>
+    <link href="logo.jpg" rel="icon" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="header">
+      <button id="bubble">Bubbles ON</button>
+      <button id="clear">CLEAR!!!!!!</button>
+      <p id="money">1$/s</p>
+      <p id="current_money">0$</p>
+      <div id="Bar">
+        <div id="fish1-container">
+          <img id="fish1" src="fish1.png" alt="Cá 1">
+          <p>3$</p>
+        </div>
+        <div id="fish2-container">
+          <img id="fish2" src="fish2.png" alt="Cá 2">
+          <p>5$</p>
+        </div>
+        <div id="fish3-container">
+          <img id="fish3" src="fish3.png" alt="Cá 3">
+          <p>10$</p>
+        </div>
+      </div>
+    </div>
+    <div id="aquarium"></div>
+    
+    
+    
+    
+    
+    
+    
+    <script>
+      var total_money=0;
+        $("#fish1").click(function() {
+    if(total_money >= 3){
+        total_money -= 3;
+        $("#current_money").text(total_money + "$");
+
+        const $fish = $("<img src='bluefish.png' class='fish1-move'/>");
+
+        let aquariumWidth = $("body").width();
+        let aquariumHeight = $("body").height();
+
+        let x = Math.random() * (aquariumWidth - 80);
+        let y = Math.random() * (aquariumHeight - $("#Bar").height() - 90) + $("#Bar").height();
+
+        $fish.css({
+            position: 'absolute', 
+            left: x + "px",
+            top: y + "px",
+            width: "80px",
+            height: "auto"
+        });
+
+        $("body").append($fish);
+
+        function moveFish() {
+            let newX = Math.random() * (aquariumWidth - 80);
+            let newY = Math.random() * (aquariumHeight - $("#Bar").height() - 100) + $("#Bar").height();
+            let duration = Math.random()*5000 + 3000;
+
+            $fish.css("transform", newX < x ? "scaleX(-1)" : "scaleX(1)");
+
+            $fish.animate({
+                left: newX + "px",
+                top: newY + "px"
+            }, duration, function() {
+                x = newX;
+                y = newY;
+                moveFish(); 
+            });
+        }
+
+        moveFish(); 
+    }
+});
+ $("#fish2").click(function() {
+    if(total_money >= 5){
+        total_money -= 5;
+        $("#current_money").text(total_money + "$");
+
+        const $fish2 = $("<img src='nemo.png' class='fish2-move'/>");
+        let aquariumWidth = $("body").width();
+        let aquariumHeight = $("body").height();
+
+        let x = Math.random() * 1000;
+        let y = Math.random() * (600-100)+100;
+
+        $fish2.css({
+            position: 'absolute', 
+            left: x + "px",
+            top: y + "px",
+            width: "300px",
+            height: "auto"
+        });
+
+        $("body").append($fish2);
+
+        function moveFish() {
+            let newX = Math.random() * (aquariumWidth-200);
+            let newY = Math.random() * (600-100)+100;
+            let duration = Math.random()*5000 + 3000;
+
+            $fish2.css("transform", newX < x ? "scaleX(-1)" : "scaleX(1)");
+
+            $fish2.animate({
+                left: newX + "px",
+                top: newY + "px"
+            }, duration, function() {
+                x = newX;
+                y = newY;
+                moveFish(); 
+            });
+        }
+
+        moveFish(); 
+    }
+});
+ $("#fish3").click(function() {
+    if(total_money >= 10){
+        total_money -= 10;
+        $("#current_money").text(total_money + "$");
+
+        const $fish3 = $("<img src='shark.png' class='fish3-move'/>");
+        let aquariumWidth = $("body").width();
+        let aquariumHeight = $("body").height();
+        console.log(aquariumWidth);
+        console.log(aquariumHeight);
+        let flip = Math.random() < 0.5 ? 1 : -1;
+        let x = Math.random() * (aquariumWidth-900-200)+200*flip;
+        let y = Math.random() * (aquariumHeight - $("#Bar").height() - 400) + $("#Bar").height();
+
+        $fish3.css({
+            position: 'absolute',
+            left: x + "px",
+            top: y + "px",
+            width: "900px",
+            height: "auto",
+        });
+
+        $("body").append($fish3);
+
+        function moveFish() {
+            let flip = Math.random() < 0.5 ? 1 : -1;
+            let newX = Math.random() * (aquariumWidth-900-10)+250*flip;
+            let newY = Math.random() * (aquariumHeight - $("#Bar").height() - 300) + flip*$("#Bar").height();
+            let duration = Math.random()*5000 + 3000;
+
+            $fish3.css("transform", newX < x ? "scaleX(-1)" : "scaleX(1)");
+
+            $fish3.animate({
+                left: newX + "px",
+                top: newY + "px"
+            }, duration, function() {
+                x = newX;
+                y = newY;
+                moveFish(); 
+            });
+        }
+
+        moveFish(); 
+    }
+});
+    
+
+
+        setInterval(function(){
+          total_money += 1000;
+          $("#current_money").text(total_money + "$");
+        },1000);
+
+
+        $("#bubble").click(function(){
+  if($(this).text() === "Bubbles ON"){
+    $(this).text("Bubbles OFF");
+    $('.bubble').addClass('hidden');
+    $(this).css("background-color", "#ff5733ff");
+  } else {
+    $(this).text("Bubbles ON");
+    $('.bubble').removeClass('hidden'); 
+    $(this).css("background-color", "#33ff57ff");
+  }
+})
+        $("#fish1").click(function(){
+          if(total_money >=3){
+            total_money -=3;
+            $("#current_money").text(total_money + "$");
+
+          }
+        })
+        $("#fish2").click(function(){
+          if(total_money >=5){
+            total_money -=5;
+            $("#current_money").text(total_money + "$");
+
+          }
+        })
+        $("#fish3").click(function(){
+          if(total_money >=10){
+            total_money -=10;
+            $("#current_money").text(total_money + "$");
+
+          }
+        })
+        
+        $("#clear").click(function(){
+          $(".fish1-move,.fish2-move,.fish3-move").remove();
+        })
+
+
+
+        $(function() {
+          function createBubble() {
+          if($('#bubble').text() === "Bubbles OFF") return;
+          const bubble = $('<div class="bubble"></div>');
+          const size = Math.random() * 50 + 10; 
+          const left = Math.random() * 100;     
+          const duration = Math.random() * 5 + 3; 
+
+    bubble.css({
+      width: size + 'px',
+      height: size + 'px',
+      left: left + 'vw',
+      animationDuration: duration + 's',
+    });
+
+    $('#aquarium').append(bubble);
+
+    setTimeout(() => {
+      bubble.remove();
+    }, duration * 400);
+  }
+
+  setInterval(createBubble, 700);
+  });
+    </script>
+</body>
+</html>
